@@ -17,8 +17,8 @@ RUN mvn package -DskipTests
 #FROM openjdk:11.0.16-jre-slim
 FROM openjdk:18-ea-1-jdk-slim
 # Copy the jar to the production image from the builder stage.
-COPY --from=build-env /app/target/PlayWrite-*.jar /PlayWrite.jar
+COPY --from=build-env /app/target/play-wright*.jar /play-wright.jar
 
 
 # Run the web service on container startup.
-CMD ["java", "-jar", "/PlayWrite.jar"]
+CMD ["java", "-jar", "/play-wright.jar"]
