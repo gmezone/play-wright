@@ -139,7 +139,7 @@ public class RemoteRestController {
             System.out.println(page);
 
             Browser browser = playwright.chromium().launch(
-                    new BrowserType.LaunchOptions().setHeadless(false)
+                    new BrowserType.LaunchOptions().setHeadless(true)
                    .setArgs(Arrays.asList(args)).setProxy(new Proxy("https://ar51.nordvpn.com:89")
                     .setUsername("vbTk73o2jxFYVXwvgrmL3JCH")
                     .setPassword("qzEM4CgVayuU5v8LCWjKqknt")));
