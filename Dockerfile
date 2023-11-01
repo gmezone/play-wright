@@ -7,7 +7,7 @@ WORKDIR /app
 COPY pom.xml ./
 # Copy local code to the container image.
 COPY src ./src
-COPY keystore.p12 ./
+#COPY keystore.p12 ./
 # Download dependencies and build a release artifact.
 RUN mvn package -DskipTests
 
