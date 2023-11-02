@@ -179,7 +179,9 @@ public class RemoteRestController {
 
         String homeScript = request.getRequestURL().substring(0, pos);
         String scriptUrl = homeScript + "/script/custom.js";
+        System.out.println("equest.getRequestURL() :" + request.getRequestURL() );
 
+        System.out.println("scriptUrl :" + scriptUrl );
         String content = page.content().replace("</head>", "<script " +
                 "src=\"https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js\">" +
                 "</script><script src='"+ scriptUrl +"'></script></head>");
