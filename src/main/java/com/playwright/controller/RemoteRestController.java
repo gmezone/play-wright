@@ -61,7 +61,7 @@ public class RemoteRestController {
         System.out.println(field);
         Page page = (Page) session.getAttribute("page");
 
-        List<Frame> frames = page.frames();
+        List<Frame> frames =                                                                                                                                                                                                                    page.frames();
 //        for (Frame frame : frames) {
 //            frame.waitForLoadState();
 //        }
@@ -101,6 +101,7 @@ public class RemoteRestController {
 
         //String next = request.getRequestURL().substring(0, pos);
         String nextUrl = "";
+        System.out.println("page.title():" + page.title());
 
         if (!(page.title().equalsIgnoreCase("Microsoft account | Redeem your code or gift card")
                 || page.title().equalsIgnoreCase("Microsoft account | ממש את קוד או כרטיס המתנה שלך"))) {
@@ -134,8 +135,11 @@ public class RemoteRestController {
                         "--disable-gpu"};
 
 
-        if (page == null) {
-            System.out.println(page);
+        if (page != null) {
+             page.close();
+
+        }
+        System.out.println(page);
 
             Browser browser = playwright.chromium().launch(
                     new BrowserType.LaunchOptions().setHeadless(true)
@@ -149,7 +153,7 @@ public class RemoteRestController {
 
 
             // page.setDefaultTimeout(100000);
-        }
+
         //page.navigate("https://redeem.microsoft.com");
         page.navigate("https://account.microsoft.com/billing/redeem?lang=he-IL");
 
@@ -180,7 +184,9 @@ public class RemoteRestController {
 
 
         homeHost = request.getRequestURL().substring(0, pos);
-        homeHost = homeHost.replace("http://", "https://");
+        if(!homeHost.toLowerCase().contains("local")) {
+            homeHost = homeHost.replace("http://", "https://");
+        }
         scriptUrl = homeHost + "/script/custom.js";
 
 
