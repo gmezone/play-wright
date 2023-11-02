@@ -236,18 +236,19 @@ public class RemoteRestController {
 
             //Sign in to your Microsoft account
             //Microsoft account(
-            if (!(page.title().equalsIgnoreCase("Microsoft account | Redeem your code or gift card")
-                    || page.title().equalsIgnoreCase("Microsoft account | ממש את קוד או כרטיס המתנה שלך"))) {
+
+          //  if (!(page.title().equalsIgnoreCase("Microsoft account | Redeem your code or gift card")
+          //          || page.title().equalsIgnoreCase("Microsoft account | ממש את קוד או כרטיס המתנה שלך"))) {
 
                 // page.waitForSelector("script");
                 page.evaluate("() => {" +
                         "for (const script of document.documentElement.querySelectorAll('script')) script.remove(); " +
                         "return document.documentElement.outerHTML; " +
                         "}"
-                );
-            } else {
-                System.out.println("xxxx");
-            }
+             );
+           // } else {
+           //     System.out.println("xxxx");
+           // }
             int pos = request.getRequestURL().indexOf(request.getRequestURI());
 
             System.out.println(request.getRequestURL());
