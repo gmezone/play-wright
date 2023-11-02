@@ -329,7 +329,7 @@ function getElementTreeXPath(element)
 
 
                        }
-                       ,4000);
+                       ,6000);
 
 
                     // alert("success");// write success in " "
