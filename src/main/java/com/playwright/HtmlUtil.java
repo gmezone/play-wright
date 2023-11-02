@@ -14,6 +14,10 @@ public class HtmlUtil {
         String host = url.substring(0, posHost);
         System.out.println(url);
         System.out.println(host);
+        if(!host.toLowerCase().contains("local")) {
+            host = host.replace("http://", "https://");
+        }
+
         return host;
 
     }
@@ -57,6 +61,18 @@ public class HtmlUtil {
                 System.out.println(src);
                // script.attr("src" ,src);
             }
+        }
+
+    }
+
+    static public void fixMeta(Document doc, String host) {
+        Elements metas = doc.getElementsByTag("meta");
+        for (Element meta : metas) {
+            String httpEquiv = meta.attr("http-equiv");
+            if (httpEquiv != null && httpEquiv.equalsIgnoreCase("Refresh")){
+               meta.attr("content","0; URL=" + host +"/next");
+            }
+
         }
 
     }

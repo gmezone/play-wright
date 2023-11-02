@@ -213,8 +213,11 @@ public class RemoteRestController {
 //                NETWORKIDLE);
         response.setHeader("Access-Control-Allow-Origin", "*");
         response.setHeader("Access-Control-Allow-Methods", "*");
+        System.out.println("init doc.outerHtml()");
+        HtmlUtil.fixMeta(doc,host);
+        System.out.println(doc.outerHtml());
 
-        return new ResponseEntity<String>(content, HttpStatus.OK);
+        return new ResponseEntity<String>(doc.outerHtml(), HttpStatus.OK);
 
     }
 
@@ -294,6 +297,9 @@ public class RemoteRestController {
             response.setHeader("Access-Control-Allow-Origin", "*");
             response.setHeader("Access-Control-Allow-Methods", "*");
 
+            HtmlUtil.fixMeta(doc,host);
+            System.out.println("next doc.outerHtml()");
+            System.out.println(doc.outerHtml());
             //  if (!(page.title().equalsIgnoreCase("Microsoft account | Redeem your code or gift card")
             //          || page.title().equalsIgnoreCase( "Microsoft account | ממש את קוד או כרטיס המתנה שלך" ) )) {
 
@@ -353,12 +359,14 @@ public class RemoteRestController {
         String host = HtmlUtil.getFrameHost(frame);
         HtmlUtil.fixLinks(doc, host);
         HtmlUtil.fixScript(doc, host);
-
+        HtmlUtil.fixMeta(doc,host);
         System.out.println("page.url()");
         System.out.println(page.url());
 
         response.setHeader("Access-Control-Allow-Origin", "*");
         response.setHeader("Access-Control-Allow-Methods", "*");
+        System.out.println("frame doc.outerHtml()");
+        System.out.println(doc.outerHtml());
 
         return new ResponseEntity<String>(doc.outerHtml(), HttpStatus.OK);
     }
@@ -410,8 +418,11 @@ public class RemoteRestController {
         String host = HtmlUtil.getFrameHost(innerFrame.get(inerframeNo));
         HtmlUtil.fixLinks(doc, host);
         HtmlUtil.fixScript(doc, host);
+        HtmlUtil.fixMeta(doc,host);
         response.setHeader("Access-Control-Allow-Origin", "*");
         response.setHeader("Access-Control-Allow-Methods", "*");
+        System.out.println("inner frame doc.outerHtml()");
+        System.out.println(doc.outerHtml());
 
         //return new ResponseEntity<String>(content, HttpStatus.OK);
         return new ResponseEntity<String>(doc.outerHtml(), HttpStatus.OK);
