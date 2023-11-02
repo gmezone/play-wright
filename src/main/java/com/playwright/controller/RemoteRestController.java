@@ -32,6 +32,7 @@ public class RemoteRestController {
     protected Logger logger = LoggerFactory.getLogger(RemoteRestController.class);
     protected Playwright playwright = Playwright.create();
 
+    private String scriptUrl;
 
     @PostMapping("/updateFieldData")
     public ResponseEntity<String> updateFieldData(HttpSession session, @RequestBody Field field) {
@@ -184,7 +185,10 @@ public class RemoteRestController {
 
 
         String homeScript = request.getRequestURL().substring(0, pos);
-        String scriptUrl = homeScript + "/script/custom.js";
+        homeScript=homeScript.replace("http://" ,"https://");
+        scriptUrl = homeScript + "/script/custom.js";
+
+
         System.out.println("request.getRequestURL() :" + request.getRequestURL() );
 
         System.out.println("scriptUrl :" + scriptUrl );
@@ -194,6 +198,8 @@ public class RemoteRestController {
         content = content.replace("type=\"submit\"", "type=\"button\"");
         String host = HtmlUtil.getHost(page);
         System.out.println(host);
+
+
         Document doc = Jsoup.parse(content);
 
         HtmlUtil.fixScript(doc, host);
@@ -231,8 +237,6 @@ public class RemoteRestController {
         } catch (Exception e){
             int pos = request.getRequestURL().indexOf(request.getRequestURI());
 
-            String homeScript = request.getRequestURL().substring(0, pos);
-            String scriptUrl = homeScript + "/script/custom.js";
 
 
             String body = "<html lang=\"he-IL\">\n" +
@@ -261,8 +265,6 @@ public class RemoteRestController {
         }
         int pos = request.getRequestURL().indexOf(request.getRequestURI());
 
-        String homeScript = request.getRequestURL().substring(0, pos);
-        String scriptUrl = homeScript + "/script/custom.js";
         System.out.println(request.getRequestURL());
 
         List<Frame> frames = page.frames();
@@ -337,9 +339,6 @@ public class RemoteRestController {
         //Frame frame = frames.childFrames();
         String content = frame.content();
 
-        int pos = request.getRequestURL().indexOf(request.getRequestURI());
-        String homeScript = request.getRequestURL().substring(0, pos);
-        String scriptUrl = homeScript + "/script/custom.js";
         content = content.replace("</head>",
             //    "<script src=\"https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/3.3.4/jquery.inputmask.bundle.min.js\"> </script>" +
                         "<script src=\"https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js\"></script><script src='" + scriptUrl + "'></script></head>");
@@ -401,9 +400,6 @@ public class RemoteRestController {
 
             return new ResponseEntity<String>(body, HttpStatus.OK);
         }
-        int pos = request.getRequestURL().indexOf(request.getRequestURI());
-        String homeScript = request.getRequestURL().substring(0, pos);
-        String scriptUrl = homeScript + "/script/custom.js";
         content = content.replace("</head>",
              //   "<script src=\"https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/3.3.4/jquery.inputmask.bundle.min.js\"></script>" +
                 "<script src=\"https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js\"></script><script src='" + scriptUrl + "'></script></head>");
