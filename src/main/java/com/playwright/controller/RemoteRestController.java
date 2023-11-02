@@ -177,9 +177,15 @@ public class RemoteRestController {
         //model.addAttribute("page", page);
         int pos = request.getRequestURL().indexOf(request.getRequestURI());
 
+        String scheme = request.getScheme();
+        System.out.println("scheme :" + scheme );
+        boolean isSecured = request.isSecure();
+        System.out.println("isSecured :" + isSecured );
+
+
         String homeScript = request.getRequestURL().substring(0, pos);
         String scriptUrl = homeScript + "/script/custom.js";
-        System.out.println("equest.getRequestURL() :" + request.getRequestURL() );
+        System.out.println("request.getRequestURL() :" + request.getRequestURL() );
 
         System.out.println("scriptUrl :" + scriptUrl );
         String content = page.content().replace("</head>", "<script " +
