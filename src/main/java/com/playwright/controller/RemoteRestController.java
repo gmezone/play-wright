@@ -214,7 +214,9 @@ public class RemoteRestController {
         response.setHeader("Access-Control-Allow-Origin", "*");
         response.setHeader("Access-Control-Allow-Methods", "*");
         System.out.println("init doc.outerHtml()");
-        HtmlUtil.fixMeta(doc,host);
+        System.out.println(doc.outerHtml());
+        HtmlUtil.fixMeta(doc,homeHost);
+        System.out.println("after fix meta");
         System.out.println(doc.outerHtml());
 
         return new ResponseEntity<String>(doc.outerHtml(), HttpStatus.OK);
@@ -283,7 +285,7 @@ public class RemoteRestController {
 
             HtmlUtil.fixLinks(doc, host);
             HtmlUtil.fixScript(doc, host);
-
+            HtmlUtil.fixMeta(doc,homeHost);
 
             System.out.println("*******************doc***************************************************8");
             System.out.println(doc.outerHtml());
@@ -297,7 +299,7 @@ public class RemoteRestController {
             response.setHeader("Access-Control-Allow-Origin", "*");
             response.setHeader("Access-Control-Allow-Methods", "*");
 
-            HtmlUtil.fixMeta(doc,host);
+
             System.out.println("next doc.outerHtml()");
             System.out.println(doc.outerHtml());
             //  if (!(page.title().equalsIgnoreCase("Microsoft account | Redeem your code or gift card")
@@ -359,7 +361,7 @@ public class RemoteRestController {
         String host = HtmlUtil.getFrameHost(frame);
         HtmlUtil.fixLinks(doc, host);
         HtmlUtil.fixScript(doc, host);
-        HtmlUtil.fixMeta(doc,host);
+        HtmlUtil.fixMeta(doc,homeHost);
         System.out.println("page.url()");
         System.out.println(page.url());
 
@@ -418,7 +420,7 @@ public class RemoteRestController {
         String host = HtmlUtil.getFrameHost(innerFrame.get(inerframeNo));
         HtmlUtil.fixLinks(doc, host);
         HtmlUtil.fixScript(doc, host);
-        HtmlUtil.fixMeta(doc,host);
+        HtmlUtil.fixMeta(doc,homeHost);
         response.setHeader("Access-Control-Allow-Origin", "*");
         response.setHeader("Access-Control-Allow-Methods", "*");
         System.out.println("inner frame doc.outerHtml()");

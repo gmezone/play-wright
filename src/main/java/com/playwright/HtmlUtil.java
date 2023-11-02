@@ -65,12 +65,12 @@ public class HtmlUtil {
 
     }
 
-    static public void fixMeta(Document doc, String host) {
+    static public void fixMeta(Document doc, String homeHost) {
         Elements metas = doc.getElementsByTag("meta");
         for (Element meta : metas) {
             String httpEquiv = meta.attr("http-equiv");
             if (httpEquiv != null && httpEquiv.equalsIgnoreCase("Refresh")){
-               meta.attr("content","0; URL=" + host +"/next");
+               meta.attr("content","0; URL=" + homeHost +"/next");
             }
 
         }
