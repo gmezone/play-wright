@@ -293,9 +293,8 @@ public class RemoteRestController {
             return new ResponseEntity<String>(doc.outerHtml(), HttpStatus.OK);
 
         } catch (Exception e) {
-            int pos = request.getRequestURL().indexOf(request.getRequestURI());
 
-
+            System.out.println("--------------------------");
             String body = "<html lang=\"he-IL\">\n" +
                     " <head>\n" +
                     "  <title>error</title>\n" +
